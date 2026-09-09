@@ -1,0 +1,23 @@
+Player,Team,Position,Minutes played,Goals,xG,Assists,xA,Shots,Passes,"Accurate passes, %",Key passes,Progressive passes,Duels,"Duels won, %",Recoveries
+Redmayne,Sydney FC,GK,90,0,0.0,0,0.0,0,47,70,0,2,14,50,4
+Grant,Sydney FC,RB,83,0,0.0,0,0.0,0,36,84,0,4,14,43,2
+Rodwell,Sydney FC,CB,90,0,0.0,0,0.09,0,29,69,1,3,5,60,3
+Burgess,Sydney FC,CB,90,0,0.0,0,0.0,0,32,80,0,5,6,50,4
+Girdwood-Reich,Sydney FC,LB,90,0,0.0,0,0.0,0,41,87,0,4,9,67,4
+Caceres,Sydney FC,CM,74,0,0.13,1,0.09,1,44,76,1,7,15,53,6
+Lolley,Sydney FC,RM,90,0,0.32,0,0.0,2,62,91,0,3,8,50,1
+Kucharski,Sydney FC,LM,90,0,1.09,0,0.09,5,53,74,1,3,4,50,3
+Segecic,Sydney FC,RW,90,0,0.0,1,0.09,0,53,87,1,2,14,50,2
+Teague,Sydney FC,ST,90,2,1.11,0,0.09,4,38,83,1,1,13,54,1
+Brattan,Sydney FC,LW,90,0,0.27,0,0.0,2,56,89,0,4,10,50,5
+Izzo,Melbourne Victory,GK,90,0,0.0,0,0.0,0,50,67,0,2,6,50,4
+Vidosic,Melbourne Victory,RB,90,0,0.0,0,0.0,0,51,84,0,1,9,56,9
+Geria,Melbourne Victory,CB,62,0,0.0,0,0.0,0,21,83,0,2,6,67,3
+Roderick,Melbourne Victory,CB,90,0,0.0,0,0.0,0,23,89,0,5,6,50,4
+Neyder,Melbourne Victory,LB,78,0,0.0,0,0.0,0,29,89,0,2,11,45,6
+Arslan,Melbourne Victory,DM,90,0,0.0,0,0.09,0,23,86,1,4,11,45,6
+Brimmer,Melbourne Victory,DM,90,0,0.0,0,0.0,0,55,84,0,5,5,40,3
+Rojas,Melbourne Victory,RW,90,0,0.67,0,0.0,2,52,78,0,1,10,70,1
+Bacus,Melbourne Victory,AM,77,1,0.43,1,0.0,3,74,85,0,5,7,57,1
+Kalifa,Melbourne Victory,LW,90,0,0.58,0,0.09,2,48,89,1,0,6,50,2
+Chiba,Melbourne Victory,ST,90,0,0.2,0,0.09,2,39,91,1,1,9,44,7

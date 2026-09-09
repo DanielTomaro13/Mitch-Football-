@@ -4,7 +4,9 @@ An internal web tool: open a link, type the team PIN, upload a Wyscout-style CSV
 
 - **Plan:** [PLAN.md](PLAN.md) (phases, accepted CSV kinds, report pages)
 - **Demo of the finished report:** [demo/output/demo_match_report.pdf](demo/output/demo_match_report.pdf) (invented data)
-- **Current status:** Phase 1 done (PIN gate, upload preview, hosting-ready). Phase 2 next.
+- **Current status:** Phases 1 and 2 done (PIN gate; upload, file recognition, column matching, templates, sample files, match details). Phase 3 (charts and report pages) next.
+- **Sample files:** [samples/](samples/) has one invented file in each accepted format. Regenerate with `.venv/bin/python demo/make_samples.py`.
+- **Tests:** `.venv/bin/python -m pytest -q`
 
 ## Non-negotiables
 

@@ -32,8 +32,8 @@ def render() -> None:
 | Phase | What it gives you | Status |
 |---|---|---|
 | 1 · Foundation and PIN gate | Working link, PIN screen, nothing stored | ✅ Done |
-| 2 · Upload, detect, validate | File checks, templates, column matching | ⏳ Next |
-| 3 · Charts and report pages | Shot maps, xG race, pass networks, player tables | Planned |
+| 2 · Upload, detect, validate | File checks, templates, column matching, sample files | ✅ Done |
+| 3 · Charts and report pages | Shot maps, xG race, pass networks, player tables | ⏳ Next |
 | 4 · Export and polish | One-click PDF, per-chart PNG | Planned |
 | 5 · Wyscout API (optional) | Pick a match from a list, no upload needed | Planned |
 """
