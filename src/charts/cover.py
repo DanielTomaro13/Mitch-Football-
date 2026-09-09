@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from matplotlib.patches import FancyBboxPatch
 
-from src.charts.style import BG, INK, INK2, INK3, LINE, Ctx, footer, new_page
+from src.charts.style import BG, INK, INK2, INK3, LINE, Ctx, draw_badge, footer, new_page
 
 # (field, label, lower is better)
 METRICS = [
@@ -56,8 +56,13 @@ def page(ctx: Ctx, team_df: pd.DataFrame, page_no: int):
     band.text(0.05, 0.78, (ctx.competition or "Match report").upper(), fontsize=9, color=INK2, transform=band.transAxes, weight="bold")
     band.text(0.05, 0.66, "  ·  ".join(p for p in (ctx.date_text, ctx.venue) if p), fontsize=9, color=INK3, transform=band.transAxes)
     hsize = 24 if max(len(ctx.home.name), len(ctx.away.name)) <= 18 else 18
-    band.text(0.05, 0.36, ctx.home.name, fontsize=hsize, weight="bold", color=ctx.home.colour, transform=band.transAxes)
-    band.text(0.95, 0.36, ctx.away.name, fontsize=hsize, weight="bold", color=ctx.away.colour, transform=band.transAxes, ha="right")
+    hx, ax_ = 0.05, 0.95
+    if ctx.home.badge and draw_badge(band, ctx.home.badge, 0.04, 0.38, height_pt=50, ha="left"):
+        hx = 0.125
+    if ctx.away.badge and draw_badge(band, ctx.away.badge, 0.96, 0.38, height_pt=50, ha="right"):
+        ax_ = 0.875
+    band.text(hx, 0.36, ctx.home.name, fontsize=hsize, weight="bold", color=ctx.home.colour, transform=band.transAxes)
+    band.text(ax_, 0.36, ctx.away.name, fontsize=hsize, weight="bold", color=ctx.away.colour, transform=band.transAxes, ha="right")
     band.text(0.5, 0.36, ctx.score.replace("–", " – ") if ctx.score != "v" else "v", fontsize=44, weight="bold", color=INK, transform=band.transAxes, ha="center", va="center")
     if ctx.headline:
         fig.text(0.04, 0.655, ctx.headline, fontsize=13, color=INK, style="italic")

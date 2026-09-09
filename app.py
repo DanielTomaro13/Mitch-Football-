@@ -35,7 +35,14 @@ pages = [
 with st.sidebar:
     st.markdown("### ⚽ Match Report Generator")
     st.caption("Nothing you upload is stored. Close the tab and it is gone.")
-    if st.button("Lock the app", icon=":material/lock:", use_container_width=True):
+    c1, c2 = st.columns(2)
+    if c1.button("Start over", icon=":material/restart_alt:", use_container_width=True,
+                 help="Forget the files, match details and report in this session."):
+        for key in ("uploads", "sample_files", "overrides", "force_mapper", "match", "report",
+                    "notes_text", "home_badge", "away_badge"):
+            st.session_state.pop(key, None)
+        st.rerun()
+    if c2.button("Lock", icon=":material/lock:", use_container_width=True, help="Go back to the PIN screen."):
         auth.logout()
         st.rerun()
     st.divider()

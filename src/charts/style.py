@@ -5,17 +5,26 @@ A4 landscape, warm off-white ground, team colours carried through every chart.
 """
 from __future__ import annotations
 
+import glob
+import os
 from dataclasses import dataclass, field
 from datetime import date as _date
 
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib import font_manager
 from matplotlib.colors import to_rgb
 from mplsoccer import Pitch, VerticalPitch
 
+# Bundled font (Public Sans, SIL Open Font License) so the report looks the same
+# on a Mac, on Windows and on the hosted app.
+FONT_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "fonts")
+for _f in glob.glob(os.path.join(FONT_DIR, "*.ttf")):
+    font_manager.fontManager.addfont(_f)
+
 plt.rcParams.update({
-    "font.family": ["Avenir Next", "Helvetica Neue", "Source Sans 3", "DejaVu Sans"],
+    "font.family": ["Public Sans", "DejaVu Sans"],
     "axes.edgecolor": "#C9D1C8",
     "axes.labelcolor": "#4A5A50",
     "xtick.color": "#4A5A50",
@@ -44,10 +53,29 @@ def tint(colour: str, amount: float = 0.78) -> str:
 class Team:
     name: str
     colour: str
+    badge: bytes | None = None      # PNG/JPG bytes, optional
 
     @property
     def light(self) -> str:
         return tint(self.colour)
+
+
+def draw_badge(ax, badge: bytes, x: float, y: float, height_pt: float = 78, ha: str = "left") -> bool:
+    """Place a badge image inside `ax` at axes-fraction (x, y). Returns False if unreadable."""
+    import io
+    from matplotlib.offsetbox import AnnotationBbox, OffsetImage
+    from PIL import Image
+
+    try:
+        img = Image.open(io.BytesIO(badge)).convert("RGBA")
+    except Exception:  # noqa: BLE001
+        return False
+    img.thumbnail((400, 400))
+    zoom = height_pt / img.height
+    box = AnnotationBbox(OffsetImage(img, zoom=zoom), (x, y), xycoords="axes fraction",
+                         box_alignment=(0 if ha == "left" else 1, 0.5), frameon=False)
+    ax.add_artist(box)
+    return True
 
 
 @dataclass

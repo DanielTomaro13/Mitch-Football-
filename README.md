@@ -20,7 +20,7 @@ You only do this once. After that, every push to GitHub updates the live app aut
 
 1. Go to <https://share.streamlit.io> and sign in with the GitHub account that owns this repo.
 2. Click **Create app** → **Deploy a public app from GitHub**.
-3. Repository: `DanielTomaro13/Mitch-Football-` · Branch: `main` · Main file path: `app.py`.
+3. Repository: `DanielTomaro13/Mitch-Football-` · Branch: `main` · Main file path: `app.py`. Under **Advanced settings**, choose Python 3.12 or newer.
 4. Open **Advanced settings** → **Secrets** and paste:
    ```toml
    APP_PIN = "1234"
@@ -31,6 +31,18 @@ You only do this once. After that, every push to GitHub updates the live app aut
 **Changing the PIN later:** app dashboard → **Settings** → **Secrets** → edit the line → **Save**. The app restarts on its own.
 
 **Keeping the link private:** in the app's **Settings** → **Sharing**, leave it *unlisted* (the default) so it never appears in Streamlit's public gallery. If the data ever becomes sensitive you can switch the app to *private* and allow specific email addresses, with no code changes.
+
+## Trying it out with colleagues
+
+Phase 4's finish line is two non-technical people producing a report unaided. Give each of them only the link and the PIN, then watch for these:
+
+1. Can they get past the PIN screen without asking what a PIN is?
+2. On *Upload and preview*, do they find the sample buttons, or drag their own file in, without help?
+3. When a file is recognised, do they understand the green tick and the "unlocks" list?
+4. Do they find *Generate* in the sidebar and click **Generate report**?
+5. Do they find **Download PDF** and open the file?
+
+Note anything they hesitate on or ask about. Each hesitation is a wording or layout change for the app, not something to explain to them.
 
 ## Run it on your own computer
 

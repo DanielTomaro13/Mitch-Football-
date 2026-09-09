@@ -57,36 +57,44 @@ def _png(fig) -> bytes:
     return buf.getvalue()
 
 
-def build(ctx: Ctx, uploads: dict[str, pd.DataFrame]) -> tuple[list[Page], bytes]:
-    """Draw every page the data allows. Returns (pages as PNG, whole report as PDF)."""
-    figs: list[tuple[str, object]] = []
-    n = 1
+def build(ctx: Ctx, uploads: dict[str, pd.DataFrame], progress=None) -> tuple[list[Page], bytes]:
+    """Draw every page the data allows. Returns (pages as PNG, whole report as PDF).
+
+    `progress(title)` is called before each page is drawn, for a status display.
+    """
+    steps: list[tuple[str, object]] = []   # (title, callable that draws the page)
     team_df = uploads.get("team")
     if team_df is None and "events" in uploads:
         team_df = E.team_summary(uploads["events"], [ctx.home.name, ctx.away.name])
     if team_df is not None:
-        figs.append(("Cover and team comparison", cover.page(ctx, team_df, n))); n += 1
+        steps.append(("Cover and team comparison", lambda n: cover.page(ctx, team_df, n)))
     if "events" in uploads:
         ev = uploads["events"]
-        figs.append(("Shots and xG race", shots.page(ctx, ev, n))); n += 1
-        figs.append(("Pass networks", network.page(ctx, ev, n))); n += 1
-        figs.append(("Territory and progression", territory.page(ctx, ev, n))); n += 1
+        steps.append(("Shots and xG race", lambda n: shots.page(ctx, ev, n)))
+        steps.append(("Pass networks", lambda n: network.page(ctx, ev, n)))
+        steps.append(("Territory and progression", lambda n: territory.page(ctx, ev, n)))
     if "player" in uploads:
-        figs.append(("Players and radars", players.page(ctx, uploads["player"], n))); n += 1
+        steps.append(("Players and radars", lambda n: players.page(ctx, uploads["player"], n)))
     if ctx.notes:
-        figs.append(("Analyst notes", notes.page(ctx, n))); n += 1
+        steps.append(("Analyst notes", lambda n: notes.page(ctx, n)))
 
     pdf_buf = io.BytesIO()
     pages: list[Page] = []
-    with PdfPages(pdf_buf) as pdf:
-        for title, fig in figs:
+    meta = {"Title": f"{ctx.home.name} {ctx.score} {ctx.away.name}", "Subject": ctx.subline,
+            "Creator": "Match Report Generator", "Author": "Match Report Generator"}
+    with PdfPages(pdf_buf, metadata=meta) as pdf:
+        for n, (title, draw) in enumerate(steps, start=1):
+            if progress:
+                progress(title)
+            fig = draw(n)
             pdf.savefig(fig, facecolor=BG)
             pages.append(Page(title, _png(fig)))
             plt.close(fig)
     return pages, pdf_buf.getvalue()
 
 
-def ctx_from_session(match: dict, colours: tuple[str, str], notes_text: str, uploads: dict[str, pd.DataFrame]) -> Ctx:
+def ctx_from_session(match: dict, colours: tuple[str, str], notes_text: str, uploads: dict[str, pd.DataFrame],
+                     badges: tuple[bytes | None, bytes | None] = (None, None)) -> Ctx:
     """Build the drawing context from what the user saved on the Upload page."""
     home, away = match.get("home", ""), match.get("away", "")
     if (not home or not away) and uploads:
@@ -95,7 +103,7 @@ def ctx_from_session(match: dict, colours: tuple[str, str], notes_text: str, upl
         home = home or (teams[0] if teams else "Home")
         away = away or (teams[1] if len(teams) > 1 else "Away")
     return Ctx(
-        home=Team(home, colours[0]), away=Team(away, colours[1]),
+        home=Team(home, colours[0], badges[0]), away=Team(away, colours[1], badges[1]),
         home_goals=match.get("home_goals"), away_goals=match.get("away_goals"),
         date=match.get("date"), competition=match.get("competition", ""), venue=match.get("venue", ""),
         headline=match.get("headline", ""), notes=parse_notes(notes_text),
