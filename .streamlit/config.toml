@@ -1,0 +1,16 @@
+[browser]
+# No usage statistics leave the app.
+gatherUsageStats = false
+
+[server]
+headless = true
+# Largest single upload, in MB. Match exports are usually well under 5 MB.
+maxUploadSize = 50
+enableXsrfProtection = true
+
+[theme]
+primaryColor = "#1F6B3A"
+backgroundColor = "#FAFBF8"
+secondaryBackgroundColor = "#EFF3EC"
+textColor = "#17231C"
+font = "sans serif"

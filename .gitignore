@@ -1,0 +1,11 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets – the PIN and any API credentials never go to GitHub
+.streamlit/secrets.toml
+
+# Local tooling
+.claude/
+.DS_Store
