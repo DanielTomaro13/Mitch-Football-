@@ -20,7 +20,9 @@ st.set_page_config(
 
 # ---- Gate: everything below only runs once the PIN has been entered ----
 if not auth.is_authenticated():
-    auth.render_pin_screen()
+    # A hidden single-page navigation clears any page menu left in the sidebar
+    # from an earlier unlocked run, so the lock screen shows nothing else.
+    st.navigation([st.Page(auth.render_pin_screen, title="Unlock")], position="hidden").run()
     st.stop()
 
 pages = [
