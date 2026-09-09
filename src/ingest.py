@@ -138,6 +138,7 @@ EVENTS = Kind(
         Field("y", "Y", ("location.y", "start y", "pos y", "y start"), numeric=True, example="46"),
         Field("end_x", "End X", ("pass.endLocation.x", "end location x", "pass end x", "carry.endLocation.x"), numeric=True, required=False, example="95"),
         Field("end_y", "End Y", ("pass.endLocation.y", "end location y", "pass end y", "carry.endLocation.y"), numeric=True, required=False, example="50"),
+        Field("recipient", "Pass recipient", ("pass.recipient.name", "receiver", "pass receiver", "recipient name"), required=False, example="Segecic"),
         Field("pass_accurate", "Pass accurate", ("pass.accurate", "accurate", "successful", "completed"), required=False, example="True"),
         Field("shot_xg", "Shot xG", ("shot.xg", "xg"), numeric=True, required=False, example="0.34"),
         Field("is_goal", "Is goal", ("shot.isGoal", "goal"), required=False, example="True"),

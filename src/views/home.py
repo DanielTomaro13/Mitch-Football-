@@ -33,8 +33,8 @@ def render() -> None:
 |---|---|---|
 | 1 · Foundation and PIN gate | Working link, PIN screen, nothing stored | ✅ Done |
 | 2 · Upload, detect, validate | File checks, templates, column matching, sample files | ✅ Done |
-| 3 · Charts and report pages | Shot maps, xG race, pass networks, player tables | ⏳ Next |
-| 4 · Export and polish | One-click PDF, per-chart PNG | Planned |
+| 3 · Charts and report pages | Shot maps, xG race, pass networks, player tables, PDF and PNG download | ✅ Done |
+| 4 · Export and polish | Club badge, mobile layout, fonts on the hosted app, user testing | ⏳ Next |
 | 5 · Wyscout API (optional) | Pick a match from a list, no upload needed | Planned |
 """
     )

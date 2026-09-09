@@ -13,7 +13,7 @@ def render() -> None:
 3. **Upload your file** on the *Upload and preview* page. CSV or Excel exports from Wyscout or the Best11 app both work. No file handy? Load a **sample** on that page to see how it works.
 4. **Check the green tick.** The app recognises three kinds of file and says which report pages each one unlocks. If a column is missing it names it, and you can either rename the column in Excel or use **Match the columns yourself** to point at the right one.
 5. **Confirm the match details** (teams, score, date) which are pre-filled from the file, and click **Save**.
-6. **Click Generate** (coming in phase 3), preview the report and **Download** it as a PDF.
+6. **Go to Generate**, pick the team colours, type any notes (a line starting with # becomes a heading), click **Generate report**, then **Download PDF**. Each page can also be saved on its own as a PNG.
 """
     )
 

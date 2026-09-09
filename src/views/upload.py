@@ -135,7 +135,7 @@ def _match_form() -> None:
         if st.form_submit_button("Save match details", type="primary"):
             ss["match"] = {"home": home.strip(), "away": away.strip(), "home_goals": int(hg), "away_goals": int(ag),
                            "date": date, "competition": comp.strip(), "venue": venue.strip(), "headline": headline.strip()}
-            st.success("Saved for this session. Head to **Generate** when it is ready (phase 3).", icon=":material/check_circle:")
+            st.success("Saved for this session. Now go to **Generate** in the sidebar.", icon=":material/check_circle:")
 
     pages = [p for k in uploads for p in ingest.KINDS[k].unlocks]
     st.markdown("**Report pages ready:** " + " · ".join(pages))

@@ -55,7 +55,7 @@ rows = []
 eid = 100000
 
 
-def add(team, player, minute, second, primary, secondary, x, y, end=None, accurate=None, xg=None, goal=None, on_target=None):
+def add(team, player, minute, second, primary, secondary, x, y, end=None, accurate=None, xg=None, goal=None, on_target=None, recipient=None):
     global eid
     eid += 1
     rows.append({
@@ -65,6 +65,7 @@ def add(team, player, minute, second, primary, secondary, x, y, end=None, accura
         "location.x": round(float(x), 1), "location.y": round(float(y), 1),
         "pass.endLocation.x": None if end is None else round(float(end[0]), 1),
         "pass.endLocation.y": None if end is None else round(float(end[1]), 1),
+        "pass.recipient.name": recipient,
         "pass.accurate": accurate, "shot.xg": xg, "shot.isGoal": goal, "shot.onTarget": on_target,
     })
 
@@ -82,10 +83,13 @@ for team, players_df, links, prog in ((demo.HOME, demo.home_players, demo.home_l
             x0, y0 = pos.loc[l.passer] + rng.normal(0, 6, 2)
             x1, y1 = pos.loc[l.receiver] + rng.normal(0, 6, 2)
             add(team, l.passer, int(rng.integers(1, 91)), int(rng.integers(0, 60)), "pass", "short_or_medium_pass",
-                np.clip(x0, 1, 99), np.clip(y0, 1, 99), end=(np.clip(x1, 1, 99), np.clip(y1, 1, 99)), accurate=True)
+                np.clip(x0, 1, 99), np.clip(y0, 1, 99), end=(np.clip(x1, 1, 99), np.clip(y1, 1, 99)), accurate=True,
+                recipient=l.receiver)
+    names = players_df.Player.tolist()
     for _, p in prog.iterrows():
         add(team, p.player, int(rng.integers(1, 91)), int(rng.integers(0, 60)), "pass", "progressive_pass",
-            p.x, p.y, end=(p.end_x, p.end_y), accurate=bool(p.accurate))
+            p.x, p.y, end=(p.end_x, p.end_y), accurate=bool(p.accurate),
+            recipient=names[int(rng.integers(0, len(names)))] if p.accurate else None)
 
 for team, touch in ((demo.HOME, demo.home_touch), (demo.AWAY, demo.away_touch)):
     players_df = demo.home_players if team is demo.HOME else demo.away_players

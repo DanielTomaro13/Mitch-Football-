@@ -8,7 +8,7 @@ session only and disappear when the tab is closed or the session goes idle.
 import streamlit as st
 
 from src import auth
-from src.views import home, how_to, upload
+from src.views import generate, home, how_to, upload
 
 st.set_page_config(
     page_title="Match Report Generator",
@@ -28,6 +28,7 @@ if not auth.is_authenticated():
 pages = [
     st.Page(home.render, title="Home", icon=":material/home:", url_path="home", default=True),
     st.Page(upload.render, title="Upload and preview", icon=":material/upload_file:", url_path="upload"),
+    st.Page(generate.render, title="Generate", icon=":material/auto_awesome:", url_path="generate"),
     st.Page(how_to.render, title="How to use", icon=":material/help:", url_path="how-to"),
 ]
 
